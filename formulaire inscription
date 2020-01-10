@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="stylesheet.css" type="text/css" rel="stylesheet"/>
+    <title>Formulaire d'inscription</title>
+
+    <style>
+        form {margin-top: 20px;}
+    </style>
+</head>
+
+<body>
+
+<div id="relative">
+    <div id="absolute">
+    <a href="Formulaire.html"><h1>Formulaire d'inscription</h1></a>
+
+    <!--Champs de saisie des données du formulaire -->
+    <form id="inscription" method="POST">
+        <input type="text" name="pseudo" placeholder="pseudo" id="pseudo" minlength="4"><br></br>
+        <input type="text" name="nom" placeholder="nom" id="nom" minlength="3"><br></br>
+        <input type="text" name="prénom" placeholder="prénom" id="prénom" minlength="3"><br></br>
+        <input type="text" name="date" placeholder="ex: 07/10/1985" id="date" minlength="10" maxlength="10"><span class="tooltip">  (Interdit de s'inscrire aux moins de 18 ans)</span><br></br>
+        <input type="email" name="email" placeholder="email" id="email"><br></br>
+        <input type="email" name="email-confirmation" placeholder="email confirmation" id="email2"><br></br>
+        <input type="password" name="mot-de-passe" placeholder="mot de passe" id="mdp" minlength="6"><br></br>
+        <input type="password" name="mot-de-passe-confirmation" placeholder="mdp confirmation" id="mdp2" minlength="6"><br></br>
+        <label><input name="sex" type="radio" value="H"/>Homme</label>
+        <label><input name="sex" type="radio" value="F"/>Femme</label>
+        <br></br>
+        <!--Bouton de validation et d'annulation du formulaire-->
+        <input type="submit" value="Valider l'inscription"> <input type="reset" value="Annuler" />
+        <br /><br />
+    </form>
+  </div>
+</div>
+
+    <p style="color:red;" id="erreur"></p> <!--place du message d'erreur si formulaire invalide-->
+
+   <script>
+   document.getElementById("inscription").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    /* variables pour chaque entrée */
+    var erreur;
+    var pseudo = document.getElementById("pseudo");
+    var nom = document.getElementById("nom");
+    var prénom = document.getElementById("prénom");
+    var date = document.getElementById("date");
+    var email = document.getElementById("email");
+    var email2 = document.getElementById("email2");
+    var mdp = document.getElementById("mdp");
+    var mdp2 = document.getElementById("mdp2");
+
+    /* Les conditions de chaque champs */
+    if (!mdp2.value){
+        erreur = "Veuillez confirmer votre mot de passe";
+    }
+
+    if (!mdp.value){
+        erreur = "Veuillez renseigner un mot de passe";
+    }
+    
+    if (!email2.value){
+        erreur = "Veuillez confirmer un email";
+    }
+
+    if (!email.value){
+        erreur = "Veuillez renseigner un email";
+    }
+
+    if (!date.value){
+        erreur = "Veuillez renseigner votre date de naissance";
+    }
+
+    if (!prénom.value){
+        erreur = "Veuillez renseigner un prénom";
+    }
+
+    if (!nom.value){
+        erreur = "Veuillez renseigner un nom";
+    }
+
+    if (!pseudo.value){
+        erreur = "Veuillez renseigner un pseudo";
+    }
+    if (nom.value==="root" || nom.value==="admin" || nom.value==="dieu"){
+        erreur= "nom deja pris";
+    }
+
+    if (email.value==="root@paca.happy-dev.fr" || email.value==="admin@paca.happy-dev.fr" || email.value==="dieu@paca.happy-dev.fr"){
+        erreur= "email deja utilisé";
+    }
+
+    if (date.value > "2001-12-10" ){
+        erreur= "tu na pas 18 ans";
+    }
+
+    /* Conditons de confirmation si formulaire valide ou invalide */
+    if (erreur) {
+		e.preventDefault();
+		document.getElementById("erreur").innerHTML = erreur;
+	} else {
+		alert('Formulaire envoyé !');
+    }
+    
+});
+   </script>
+</body>
+
+</html>
